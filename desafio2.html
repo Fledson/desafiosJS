@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio 2</title>
+</head>
+
+<body>
+    <!-- criar div com os elementos do exercicio 1
+    a div sera manipulada ao clicar no botao -->
+    <div id="criar-item">
+        <button id="botao-adicionar">Adicionar Item</button>
+    </div>
+    <div id="exibir-lista">
+        <input type="text" name="nome">
+        <button onClick="adicionar()">Adicionar</button>
+    </div>
+
+    <script>
+        //     EXERCICIO 1 E 2
+        // criando variaveis e referenciando os elementos do html pelo id 
+        var botao = document.getElementById('botao-adicionar')
+        var divBase = document.getElementById('criar-item')
+
+        // criando evento para acontecer durante o clique no botao
+        botao.onclick = () => {
+            // manipulando a DOM para criar um novo elemento div
+            var quadrado = document.createElement('div')
+
+            // adicionando estilos css no elemento criado
+            quadrado.style.height = '100px'
+            quadrado.style.width = '100px'
+            quadrado.style.marginTop = '10px'
+            quadrado.style.backgroundColor = 'red'
+
+            // criando evento no elemento criado, quando passar o mouse sobre o elemento ele chama a função
+            // para gerar cores aleatorias no background
+            quadrado.onmouseover = () => {
+                quadrado.style.backgroundColor = getRandomColor()
+            }
+
+            // adicionando o elemento criado a um elemento do html
+            // (adicionando a minha div criada a div que ja existe no html, se não for usar uma div manipule o body)
+            divBase.appendChild(quadrado)
+        }
+
+        // funcao para gerar cores aleatorias
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        //     EXERCICIO 3
+        var nomes = ["Diego", "Gabriel", "Lucas"]
+        var textElement = document.querySelector('input[name=nome]')
+        var lista = document.createElement('ul')
+        var divLista = document.getElementById('exibir-lista')
+
+        // função para exibir os nomes dos vetores na tela
+        function exibir() {
+            // limpar o input ao carregar a função
+            textElement.value = ''
+                // percorrendo o vetor
+            for (var nome of nomes) {
+                criarLista(nome)
+            }
+            // adicionando a lista na div onde ela ficará
+            divLista.appendChild(lista)
+        }
+        // chamando a função de forma global para exibir os itens da lista ao carregar a pagina
+        exibir();
+
+        // função criada para criar cada item da lista
+        function criarLista(nome) {
+            // criando um item da lista
+            var item = document.createElement('li')
+                // Armazenando na variavel texto o nome que esta no vetor
+            var texto = document.createTextNode(nome)
+
+            // Adicionando o texto no item da lista 
+            item.appendChild(texto)
+                // colocando o item da lista na propria lista
+            lista.appendChild(item)
+        }
+
+        // Função ao clicar em adicionar
+        function adicionar() {
+            // pegando o texto que esta no input
+            var novoNome = textElement.value
+                // codicional criada para não permitir que coloquem registros vazios na lista
+            if (novoNome != '') {
+                // adicionando o texto do input no vetor para armazena-lo
+                nomes.push(novoNome)
+                    // adiciona o item a lista
+                criarLista(novoNome)
+            } else {
+                alert('Digite um nome para exibir!')
+            }
+            textElement.value = ''
+        }
+    </script>
+</body>
+
+</html>

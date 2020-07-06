@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="criarItem">
+        <input type="text" name="nome">
+        <button onClick="adicionar()">Adicionar</button>
+        <button id="quadrado">Adicionar Quadrado</button>
+    </div>
+
+    <script>
+        // ==================EXERCICIO 1 e 2 =====================================
+        var divBase = document.querySelector('#criarItem ')
+        var botao = document.querySelector('#criarItem button[id=quadrado] ')
+
+        botao.onclick = () => {
+            var quadrado = document.createElement('div')
+
+            quadrado.style.width = '100px '
+            quadrado.style.height = '100px '
+            quadrado.style.backgroundColor = 'red '
+            quadrado.style.marginTop = '10px '
+            divBase.appendChild(quadrado)
+
+            quadrado.onmouseover = () => {
+                quadrado.style.backgroundColor = getRandomColor()
+            }
+
+        }
+
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // ==================EXERCICIO 3 e 4=====================================
+        var nomes = ["Diego", "Gabriel", "Lucas"];
+        var lista = document.createElement('ul')
+        var textElement = document.querySelector('input[name=nome]')
+
+        function exibirLista() {
+            for (let nome of nomes) {
+                criarItemLista(nome)
+                divBase.appendChild(lista)
+            }
+        }
+        exibirLista();
+
+        function criarItemLista(nome) {
+            var item = document.createElement('li')
+            var texto = document.createTextNode(nome)
+            item.appendChild(texto)
+            lista.appendChild(item)
+        }
+
+        function adicionar() {
+            var novoNome = textElement.value
+            nomes.push(novoNome)
+            if (novoNome != '')
+                criarItemLista(novoNome)
+            else
+                alert('Digite algo')
+            textElement.value = ''
+        }
+    </script>
+</body>
+
+</html>
